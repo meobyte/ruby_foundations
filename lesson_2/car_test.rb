@@ -32,9 +32,19 @@ class CarTest < MiniTest::Test
   end
 
   def test_includes_car
-    arr = [1, 2, 3]
+    arr = ['a', 'b', 'c']
     arr << @car
 
     assert_includes(arr, @car)
+  end
+
+  def test_value_equality
+    car1 = Car.new
+    car2 = Car.new
+
+    car1.name = "Kim"
+    car2.name = "Kim"
+
+    assert_equal(car1, car2)
   end
 end
