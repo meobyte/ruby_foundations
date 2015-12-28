@@ -97,6 +97,23 @@ class TodoList
   def to_a
     @todos
   end
+
+  def each
+    @todos.each do |todo|
+      yield(todo)
+    end
+
+    self
+  end
+
+  def select
+    result = TodoList.new(title)
+    each do |todo|
+      result.add(todo) if yield(todo)
+    end
+
+    result
+  end
 end
 
 todo1 = Todo.new("Buy milk")
@@ -108,7 +125,8 @@ list.add(todo1)
 list.add(todo2)
 list.add(todo3)
 
-puts list
-puts list.done?
-list.done!
-puts list.done?
+todo1.done!
+
+results = list.select { |todo| todo.done? }
+
+puts results.inspect
