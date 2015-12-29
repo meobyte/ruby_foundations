@@ -23,7 +23,7 @@ class Luhn
   end
 
   def self.create(num)
-    num_checksum = self.new(num * 10).checksum
+    num_checksum = new(num * 10).checksum
     luhnifier = num_checksum % 10 == 0 ? 0 : 10 - (num_checksum % 10)
     num * 10 + luhnifier
   end
