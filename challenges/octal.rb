@@ -1,17 +1,22 @@
 class Octal
-  attr_accessor :num
+  attr_reader :octal
 
-  def initialize(num)
-    @num = num
+  def initialize(octal)
+    @octal = octal
+    @digits = octal.each_char.map(&:to_i).reverse
   end
 
   def to_decimal
-    n = 0
     sum = 0
-    num.each_char.map(&:to_i).reverse.each do |digit|
-      sum += digit*8**n
-      n += 1
+
+    if valid_octal?
+      @digits.each_with_index { |digit, n| sum += digit * 8**n }
     end
+
     sum
+  end
+
+  def valid_octal?
+    octal =~ /^[0-7]*$/
   end
 end
