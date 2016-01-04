@@ -11,7 +11,7 @@ class Robot
 
   def orient(direction)
     unless @directions.include?(direction)
-      raise ArgumentError.new("Must be :north, :south, :east, or :west")
+      fail ArgumentError, 'Must be :north, :south, :east, or :west'
     end
     @bearing = direction
   end
@@ -23,7 +23,7 @@ class Robot
   end
 
   def turn_left
-    prev_index = @directions.find_index(bearing) -1
+    prev_index = @directions.find_index(bearing) - 1
     @bearing = @directions[prev_index]
   end
 
