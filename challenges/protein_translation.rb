@@ -3,29 +3,26 @@ class InvalidCodonError < StandardError; end
 class Translation
   CODONS = {
     'AUG' => 'Methionine',
-    'UUU' => 'Phenylalanine', 'UUC' => 'Phenylalanine',
-    'UUA' => 'Leucine', 'UUG' => 'Leucine',
-    'UCU' => 'Serine', 'UCC' => 'Serine', 'UCA' => 'Serine', 'UCG' => 'Serine',
-    'UAU' => 'Tyrosine', 'UAC' => 'Tyrosine',
-    'UGU' => 'Cysteine', 'UGC' => 'Cysteine',
     'UGG' => 'Tryptophan',
-    'UAA' => 'STOP', 'UAG' => 'STOP', 'UGA' => 'STOP'
+    'UUU' => 'Phenylalanine', 'UUC' => 'Phenylalanine',
+    'UAU' => 'Tyrosine',      'UAC' => 'Tyrosine',
+    'UGU' => 'Cysteine',      'UGC' => 'Cysteine',
+    'UUA' => 'Leucine',       'UUG' => 'Leucine',
+    'UCU' => 'Serine',        'UCC' => 'Serine',
+    'UCA' => 'Serine',        'UCG' => 'Serine',
+    'UAA' => 'STOP',          'UAG' => 'STOP',
+    'UGA' => 'STOP'
   }
 
   def self.of_codon(codon)
-    unless CODONS.key?(codon)
-      fail InvalidCodonError
-    end
-    CODONS.fetch(codon)
+    CODONS.fetch(codon) { fail InvalidCodonError }
   end
 
   def self.of_rna(strand)
     codons = strand.scan(/.{3}/)
-    rna = []
-    codons.each do |codon|
-      break if of_codon(codon) == 'STOP'
+    codons.each_with_object([]) do |codon, rna|
+      return rna if of_codon(codon) == 'STOP'
       rna << of_codon(codon)
     end
-    rna
   end
 end
