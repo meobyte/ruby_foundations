@@ -1,4 +1,3 @@
-require 'pry'
 class Robot
   attr_accessor :bearing
   attr_reader :coordinates
