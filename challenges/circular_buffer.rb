@@ -1,10 +1,10 @@
 class CircularBuffer
   attr_accessor :buffer, :head, :tail
-  attr_reader :buffer_size
+  attr_reader :size
 
-  def initialize(buffer_size)
-    @buffer_size = buffer_size
-    @buffer = Array.new(buffer_size)
+  def initialize(size)
+    @size = size
+    @buffer = Array.new(size)
     @head = 0
     @tail = 0
   end
@@ -48,12 +48,12 @@ class CircularBuffer
 
   def advance_head
     @head += 1
-    @head = 0 if head == buffer_size
+    @head = 0 if head == size
   end
 
   def advance_tail
     @tail += 1
-    @tail = 0 if tail == buffer_size
+    @tail = 0 if tail == size
   end
 
   class BufferEmptyException < StandardError; end
