@@ -8,7 +8,7 @@ class CircularBuffer
   end
 
   def read
-    fail BufferEmptyException unless @buffer.any?
+    fail BufferEmptyException if @buffer.compact.empty?
     data = buffer[head]
     buffer[head] = nil
     advance_head
