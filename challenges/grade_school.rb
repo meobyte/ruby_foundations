@@ -2,7 +2,7 @@ class School
   attr_reader :roster
 
   def initialize
-    @roster = Hash.new{ |roster, grade| roster[grade] = [] }
+    @roster = Hash.new { |roster, grade| roster[grade] = [] }
   end
 
   def add(student, grade)
